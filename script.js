@@ -259,15 +259,18 @@ yesBtn.addEventListener("click",()=>{
 
         question.style.display="none";
 
-        letterIntro.classList.remove("hidden");
+        document.querySelector("#transition h2").classList.add("fadeOut");
+document.getElementById("chapterText").classList.add("fadeOut");
 
-        requestAnimationFrame(()=>{
+letterIntro.classList.remove("hidden");
 
-            letterIntro.classList.add("show");
+requestAnimationFrame(()=>{
 
-        });
+    letterIntro.classList.add("show");
 
-        startMusic();
+});
+
+startMusic();
 
        setTimeout(()=>{
 
@@ -436,7 +439,7 @@ Hace un año comenzamos está historia de amor que aún seguimos escribiendo,
 y está de más decirte lo mucho que me importas y cuánto te amo, pero te lo digo aún...
 
 
-Haz sido parte de cada momento bueno, malo, triste, feliz a lo largo de este año, y 
+Has sido parte de cada momento bueno, malo, triste, y feliz a lo largo de este año, y 
 solo puedo agradecerte por ser una novia tan maravillosa. Con solo recordar tu sonrisa me pongo a sonreír, 
 eres la única para mi.
 
