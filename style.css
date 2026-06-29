@@ -1,0 +1,736 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    overflow-x:hidden;
+    overflow-y:hidden;
+
+    font-family:Poppins,sans-serif;
+
+    background:#050816;
+
+    color:white;
+
+}
+
+/* Fondo */
+
+.nebula{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    z-index:0;
+
+}
+
+.nebula::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+
+    height:900px;
+
+    left:50%;
+
+    top:45%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:radial-gradient(
+
+        circle,
+
+        rgba(110,120,255,.22) 0%,
+
+        rgba(110,120,255,.10) 30%,
+
+        rgba(170,90,255,.08) 55%,
+
+        transparent 75%
+
+    );
+
+    filter:blur(80px);
+
+    animation:nebulaFloat 18s ease-in-out infinite;
+
+}
+
+@keyframes nebulaFloat{
+
+    0%{
+
+        transform:translate(-50%,-50%) scale(1);
+
+    }
+
+    50%{
+
+        transform:translate(-48%,-52%) scale(1.08);
+
+    }
+
+    100%{
+
+        transform:translate(-50%,-50%) scale(1);
+
+    }
+
+}
+
+.background{
+
+    z-index:-2;
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at top,#2c1d63 0%,#0b1433 40%,#050816 100%);
+
+}
+
+/* Contenido */
+
+.hero{
+
+    position:relative;
+
+    z-index:10;
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:30px;
+
+}
+
+h1{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:clamp(4rem,9vw,7rem);
+
+    font-weight:600;
+
+    letter-spacing:3px;
+
+    line-height:.95;
+
+    margin-bottom:20px;
+
+    text-shadow:
+        0 0 15px rgba(255,255,255,.15),
+        0 0 40px rgba(120,160,255,.12);
+
+}
+
+p{
+
+    max-width:650px;
+
+    font-size:1.2rem;
+
+    line-height:1.9;
+
+    color:rgba(255,255,255,.78);
+
+    margin-bottom:55px;
+
+    font-weight:300;
+
+}
+button{
+
+    padding:18px 58px;
+
+    font-size:1rem;
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.07);
+
+    backdrop-filter:blur(12px);
+
+    cursor:pointer;
+
+    transition:
+        transform .35s,
+        box-shadow .35s,
+        background .35s;
+
+    animation:breathe 3s ease-in-out infinite;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    background:rgba(255,255,255,.12);
+
+    box-shadow:
+        0 0 30px rgba(130,170,255,.22);
+
+}
+
+.stars{
+
+z-index:1;
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background-image:
+
+    radial-gradient(2px 2px at 15% 20%, white 50%, transparent 51%),
+
+    radial-gradient(2px 2px at 80% 15%, white 50%, transparent 51%),
+
+    radial-gradient(1.5px 1.5px at 30% 75%, white 50%, transparent 51%),
+
+    radial-gradient(2px 2px at 70% 65%, white 50%, transparent 51%),
+
+    radial-gradient(2px 2px at 55% 40%, white 50%, transparent 51%),
+
+    radial-gradient(1.5px 1.5px at 90% 85%, white 50%, transparent 51%),
+
+    radial-gradient(2px 2px at 10% 90%, white 50%, transparent 51%);
+
+    opacity:.8;
+
+    animation:floatStars 25s linear infinite;
+
+}
+
+@keyframes floatStars{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(-40px);
+
+    }
+
+}
+
+button{
+
+    animation:breathe 3s ease-in-out infinite;
+
+}
+
+@keyframes breathe{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.03);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+#star-container{
+
+z-index:2;
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+}
+
+.star{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:white;
+
+    animation:twinkle linear infinite;
+
+}
+
+@keyframes twinkle{
+
+    0%{
+
+        opacity:.2;
+
+        transform:scale(.8);
+
+    }
+
+    50%{
+
+        opacity:1;
+
+        transform:scale(1.3);
+
+    }
+
+    100%{
+
+        opacity:.2;
+
+        transform:scale(.8);
+
+    }
+
+}
+
+@keyframes titleAppear{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes textAppear{
+
+from{
+
+opacity:0;
+
+transform:translateY(25px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes buttonAppear{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+#space{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100vw;
+    height:100vh;
+
+    z-index:2;
+
+    pointer-events:none;
+
+}
+
+#transition{
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    min-height:100vh;
+
+    background:#050816;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    padding:80px 30px;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:opacity 1.5s;
+
+    z-index:999;
+
+}
+
+#transition.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+#transition h2{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:4rem;
+
+    margin-bottom:20px;
+
+}
+
+#transition p{
+
+    font-size:1.3rem;
+
+    color:rgba(255,255,255,.75);
+
+}
+
+/* ===========================
+   CAPÍTULO 1
+=========================== */
+
+.hidden{
+    display:none;
+}
+
+#question{
+
+    margin-top:35px;
+
+    opacity:0;
+    transform:translateY(20px);
+
+    transition:1s;
+
+}
+
+#question.show{
+
+    opacity:1;
+    transform:translateY(0);
+
+}
+
+#question h3{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:2rem;
+
+    margin-bottom:30px;
+
+}
+
+#choiceButtons{
+
+    display:flex;
+
+    gap:25px;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+#choiceButtons button{
+
+    min-width:140px;
+
+    transition:
+    transform .5s,
+    opacity .8s,
+    filter .5s;
+
+}
+
+/* ===========================
+   BOTÓN NO
+=========================== */
+
+#noBtn.creeper{
+
+    animation:creeper .8s forwards;
+
+}
+
+@keyframes creeper{
+
+0%{
+
+transform:scale(1);
+
+}
+
+25%{
+
+transform:scale(1.08);
+
+}
+
+45%{
+
+transform:scale(1.15);
+
+}
+
+65%{
+
+transform:scale(1.22);
+
+}
+
+80%{
+
+transform:scale(1.28);
+
+}
+
+100%{
+
+transform:scale(1.35);
+
+filter:brightness(1.8);
+
+}
+
+}
+
+#noBtn.explode{
+
+opacity:0;
+
+transform:scale(2);
+
+filter:blur(10px);
+
+transition:all .7s ease;
+
+}
+
+/* ===========================
+   BOTÓN SI
+=========================== */
+
+#yesBtn.center{
+
+transform:translateX(82px);
+
+}
+
+/* ===========================
+   ESTA CARTA ES PARA TI
+=========================== */
+
+#letterIntro{
+
+margin-top:60px;
+
+opacity:0;
+
+transform:translateY(25px);
+
+transition:1.5s;
+
+}
+
+#letterIntro.show{
+
+display:block;
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+#letterIntro h3{
+
+font-family:"Cormorant Garamond",serif;
+
+font-size:2.8rem;
+
+font-weight:600;
+
+}
+
+/* ===========================
+   CARTA
+=========================== */
+
+#letter{
+
+max-width:820px;
+
+margin-top:50px;
+
+opacity:0;
+
+transition:2s;
+
+}
+
+#letter.show{
+
+display:block;
+
+opacity:1;
+
+}
+
+#letter p{
+
+font-size:1.15rem;
+
+line-height:2.1;
+
+text-align:left;
+
+}
+
+/* ===========================
+   PARTÍCULAS
+=========================== */
+
+.particle{
+
+position:fixed;
+
+width:6px;
+
+height:6px;
+
+background:white;
+
+border-radius:50%;
+
+pointer-events:none;
+
+box-shadow:0 0 10px white;
+
+animation:particle .9s forwards;
+
+}
+
+@keyframes particle{
+
+0%{
+
+opacity:1;
+
+transform:translate(0,0) scale(1);
+
+}
+
+100%{
+
+opacity:0;
+
+transform:translate(
+
+var(--x),
+
+var(--y)
+
+)
+
+scale(.1);
+
+}
+
+}
+
+#fireworks{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100vw;
+    height:100vh;
+
+    pointer-events:none;
+
+    z-index:3;
+
+}

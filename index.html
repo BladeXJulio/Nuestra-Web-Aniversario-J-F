@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>365 días contigo</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background"></div>
+    <div class="nebula"></div>
+
+    <canvas id="space"></canvas>
+    <canvas id="fireworks"></canvas>
+
+    <section class="hero">
+
+        <h1>365 días contigo</h1>
+
+        <p>
+            Un año puede cambiar muchas cosas.
+            <br>
+            El nuestro cambió dos vidas.
+        </p>
+
+        <button id="startButton">
+            Comenzar
+        </button>
+
+    </section>
+
+    <div id="transition">
+
+        <h2>Capítulo I</h2>
+
+        <p id="chapterText">
+            365 días después... volvería a elegirte.
+        </p>
+
+        <div id="question" class="hidden">
+
+            <h3>¿Tú me seguirías eligiendo?</h3>
+
+            <div id="choiceButtons">
+
+                <button id="yesBtn">
+                    Sí
+                </button>
+
+                <button id="noBtn">
+                    No
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="letterIntro" class="hidden">
+
+            <h3>
+                Esta carta es para ti...
+            </h3>
+
+        </div>
+
+        <div id="letter" class="hidden">
+
+            <p id="letterText"></p>
+
+        </div>
+
+    </div>
+
+    <audio id="music" preload="auto">
+        <source src="Melodía.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
