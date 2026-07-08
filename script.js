@@ -1,37 +1,8 @@
-const title = document.getElementById("daysTogether");
-const counter = document.getElementById("loveCounter");
-
-const startDate = new Date("2025-06-29T20:16:00");
-
-function updateLoveCounter(){
-
-    const now = new Date();
-
-    const diff = now - startDate;
-
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor(diff / 3600000);
-    const minutes = Math.floor(diff / 60000);
-    const seconds = Math.floor(diff / 1000);
-
-    title.textContent = `${days} días contigo`;
-
-    counter.innerHTML = `
-        ${hours.toLocaleString()} horas compartidas<br>
-        ${minutes.toLocaleString()} minutos eligiéndote<br>
-        ${seconds.toLocaleString()} segundos de nuestra historia
-    `;
-
-}
-
-updateLoveCounter();
 
 setInterval(updateLoveCounter,1000);
 
 const canvas = document.getElementById("space");
 const ctx = canvas.getContext("2d");
-const fireCanvas = document.getElementById("fireworks");
-const fireCtx = fireCanvas.getContext("2d");
 const backButton = document.getElementById("backButton");
 
 let w, h;
@@ -44,9 +15,6 @@ function resize(){
 
     canvas.width = w;
     canvas.height = h;
-
-    fireCanvas.width = w;
-    fireCanvas.height = h;
 
 }
 window.addEventListener("resize", resize);
@@ -225,6 +193,9 @@ const letterText = document.getElementById("letterText");
 const music = document.getElementById("music");
 
 let noExploded = false;
+let typeTimer = null;
+let letterStarted = false;
+let currentCharTimeout = null;
 
 button.addEventListener("click", () => {
 
@@ -239,6 +210,17 @@ button.addEventListener("click", () => {
     setTimeout(() => {
 
         transition.classList.add("show");
+
+        if (letterStarted) {
+
+    letter.classList.remove("hidden");
+    letter.classList.add("show");
+
+    currentCharTimeout = setTimeout(writeCharacter, 50);
+
+    return;
+
+}
 
         setTimeout(() => {
 
@@ -320,7 +302,19 @@ startMusic();
 
     document.body.style.overflowY = "auto";
 
+   if(!letterStarted){
+
+    letterStarted = true;
     typeLetter();
+
+   }else{
+
+    writeCharacter();
+    if(music.paused){
+        music.play();
+    }
+
+   }
 
 },2500);
 
@@ -386,305 +380,10 @@ function createParticle(x,y){
 
 }
 
-/* ============================
-        MUSICA
-============================ */
-
-function startMusic(){
-
-    music.volume=0;
-
-    music.currentTime=0;
-
-    music.play();
-
-    fadeIn();
-
-}
-
-function fadeIn(){
-
-    const interval=setInterval(()=>{
-
-        if(music.volume<0.98){
-
-            music.volume+=0.02;
-
-        }else{
-
-            music.volume=1;
-
-            clearInterval(interval);
-
-        }
-
-    },60);
-
-}
-
-music.addEventListener("ended",()=>{
-
-    fadeOut();
-
-});
-
-function fadeOut(){
-
-    music.volume=1;
-
-    const interval=setInterval(()=>{
-
-        if(music.volume>0.02){
-
-            music.volume-=0.02;
-
-        }else{
-
-            music.volume=0;
-
-            clearInterval(interval);
-
-            setTimeout(()=>{
-
-                music.currentTime=0;
-
-                music.play();
-
-                fadeIn();
-
-            },5000);
-
-        }
-
-    },40);
-
-}
-
-/* ============================
-        CARTA
-============================ */
-
-const fullLetter = `
-
-Querida Fresley, 
-
-Hace un año comenzamos está historia de amor que aún seguimos escribiendo, 
-y está de más decirte lo mucho que me importas y cuánto te amo, pero te lo digo aún...
-
-
-Has sido parte de cada momento bueno, malo, triste, y feliz a lo largo de este año, y 
-solo puedo agradecerte por ser una novia tan maravillosa. Con solo recordar tu sonrisa me pongo a sonreír, 
-eres la única para mi.
-
-
-Cada vez que pienso en ti, una melodía como esta atraviesa mi mente...
-La compuse especialmente para ti para que sepas lo especial que eres tú en mi vida. 
-Llevamos un año juntos, 366 días y hoy por fin puedo decirte...
-
-
-Feliz aniversario, Amor de mi vida.
-
-De Julio.
-
-`;
-
-let currentChar = 0;
-
-function typeLetter(){
-
-    letterText.innerHTML="";
-
-    currentChar=0;
-
-    writeCharacter();
-
-}
-
-/* ============================
-      FUEGOS ARTIFICIALES
-============================ */
-
-let fireworks = [];
-let fireworksRunning = false;
-
-class Firework {
-
-    constructor() {
-
-        this.x = Math.random() * w;
-        this.y = h + 20;
-
-        this.targetY = 80 + Math.random() * (h * 0.45);
-
-        this.speed = 8 + Math.random() * 3;
-
-        this.exploded = false;
-
-        this.particles = [];
-
-        this.color = `hsl(${Math.random() * 360},100%,60%)`;
-
-    }
-
-    update() {
-
-        if (!this.exploded) {
-
-            this.y -= this.speed;
-
-            fireCtx.globalAlpha = p.life;
-
-fireCtx.beginPath();
-
-if (p.flash) {
-
-    fireCtx.fillStyle = "white";
-    fireCtx.arc(p.x, p.y, 5, 0, Math.PI * 2);
-
-} else {
-
-    fireCtx.fillStyle = this.color;
-    fireCtx.arc(p.x, p.y, 2.3, 0, Math.PI * 2);
-
-}
-
-fireCtx.shadowBlur = 15;
-fireCtx.shadowColor = this.color;
-
-fireCtx.fill();
-
-fireCtx.shadowBlur = 0;
-
-            if (this.y <= this.targetY) {
-
-                this.explode();
-
-            }
-
-        } else {
-            
-           for (let i = 0; i < 25; i++) {
-
-    this.particles.push({
-
-        x: this.x,
-        y: this.y,
-
-        vx: (Math.random() - 0.5) * 1.5,
-        vy: (Math.random() - 0.5) * 1.5,
-
-        life: 0.35,
-        flash: true
-
-    });
-
-}
-
-            for (let p of this.particles) {
-
-                p.x += p.vx;
-                p.y += p.vy;
-
-                p.vy += 0.04;
-
-                p.life -= 0.015;
-
-                if (p.life <= 0) continue;
-
-                fireCtx.globalAlpha = p.life;
-
-                fireCtx.beginPath();
-                fireCtx.fillStyle = this.color;
-                fireCtx.arc(p.x, p.y, 2.3, 0, Math.PI * 2);
-                fireCtx.fill();
-
-            }
-
-            fireCtx.globalAlpha = 1;
-
-            this.particles = this.particles.filter(p => p.life > 0);
-
-        }
-
-    }
-
-    explode() {
-
-        this.exploded = true;
-
-        for (let i = 0; i < 120; i++) {
-
-            const angle = Math.random() * Math.PI * 2;
-            const speed = 2 + Math.random() * 5;
-
-            this.particles.push({
-
-                x: this.x,
-                y: this.y,
-
-                vx: Math.cos(angle) * speed,
-                vy: Math.sin(angle) * speed,
-
-                life: 1
-
-            });
-
-        }
-
-    }
-
-    finished() {
-
-        return this.exploded && this.particles.length === 0;
-
-    }
-
-}/* ============================
-      ANIMACIÓN FUEGOS
-============================ */
-
-function animateFireworks() {
-
-    fireCtx.clearRect(0, 0, w, h);
-
-    for (let fw of fireworks) {
-
-        fw.update();
-
-    }
-
-    fireworks = fireworks.filter(fw => !fw.finished());
-
-    requestAnimationFrame(animateFireworks);
-
-}
-
-animateFireworks();
-
-
-/* ============================
-      INICIAR FUEGOS
-============================ */
-
-function startFireworks() {
-
-    if (fireworksRunning) return;
-
-    fireworksRunning = true;
-
-    setInterval(() => {
-
-        fireworks.push(new Firework());
-
-    }, 350);
-
-}
 
 function writeCharacter(){
 
     if(currentChar >= fullLetter.length){
-
-    startFireworks();
 
     return;
 
@@ -710,21 +409,31 @@ function writeCharacter(){
         speed=800;
     }
 
-    setTimeout(writeCharacter,speed);
+   currentCharTimeout = typeTimer = typeTimer = currentCharTimeout = setTimeout(writeCharacter, speed);
 
 }
 
-backButton.addEventListener("click",()=>{
+backButton.addEventListener("click", () => {
 
-    transition.classList.remove("show");
+    clearTimeout(typeTimer);
+
+    clearTimeout(currentCharTimeout);
+
+    music.pause();
+    music.currentTime = 0;
 
     hero.style.opacity = "1";
-
     hero.style.pointerEvents = "auto";
 
     canvas.style.transform = "scale(1)";
 
+    transition.classList.remove("show");
+
+    question.style.display = "block";
+    question.style.opacity = "1";
+    question.style.pointerEvents = "auto";
     question.classList.add("hidden");
+    question.classList.remove("show");
 
     letter.classList.remove("show");
     letter.classList.add("hidden");
@@ -732,13 +441,17 @@ backButton.addEventListener("click",()=>{
     letterIntro.classList.remove("show");
     letterIntro.classList.add("hidden");
 
-     transition.style.position = "fixed";
+    letterText.innerHTML = "";
 
-    document.body.style.overflowY = "hidden";
+    currentChar = 0;
+    letterStarted = false;
 
     noExploded = false;
 
     hero.style.display = "flex";
+
+    transition.style.position = "fixed";
+    document.body.style.overflowY = "hidden";
 
     backButton.classList.remove("show");
 
