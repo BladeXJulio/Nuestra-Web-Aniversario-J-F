@@ -751,14 +751,14 @@ scale(.1);
 
     position:fixed;
 
-    top:20px;
-    left:20px;
+    top:25px;
+    left:25px;
 
-    width:80px;
-    height:50px;
+    width:55px;
+    height:55px;
 
     border:none;
-    border-radius:999px;
+    border-radius:50px;
 
     background:rgba(255,255,255,.08);
     backdrop-filter:blur(10px);
@@ -780,7 +780,7 @@ scale(.1);
 
     transition:.35s;
 
-    z-index:9999;
+    z-index:2000;
 
 }
 
