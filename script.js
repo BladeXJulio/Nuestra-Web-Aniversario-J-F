@@ -1,3 +1,30 @@
+const title = document.getElementById("daysTogether");
+const counter = document.getElementById("loveCounter");
+
+const startDate = new Date("2025-06-29T20:16:00");
+
+function updateLoveCounter(){
+
+    const now = new Date();
+
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor(diff / 3600000);
+    const minutes = Math.floor(diff / 60000);
+    const seconds = Math.floor(diff / 1000);
+
+    title.textContent = `${days} días contigo`;
+
+    counter.innerHTML = `
+        ${hours.toLocaleString()} horas compartidas<br>
+        ${minutes.toLocaleString()} minutos eligiéndote<br>
+        ${seconds.toLocaleString()} segundos de nuestra historia
+    `;
+
+}
+
+updateLoveCounter();
 
 setInterval(updateLoveCounter,1000);
 
@@ -359,6 +386,119 @@ function createParticle(x,y){
 
 }
 
+/* ============================
+        MUSICA
+============================ */
+
+function startMusic(){
+
+    music.volume=0;
+
+    music.currentTime=0;
+
+    music.play();
+
+    fadeIn();
+
+}
+
+function fadeIn(){
+
+    const interval=setInterval(()=>{
+
+        if(music.volume<0.98){
+
+            music.volume+=0.02;
+
+        }else{
+
+            music.volume=1;
+
+            clearInterval(interval);
+
+        }
+
+    },60);
+
+}
+
+music.addEventListener("ended",()=>{
+
+    fadeOut();
+
+});
+
+function fadeOut(){
+
+    music.volume=1;
+
+    const interval=setInterval(()=>{
+
+        if(music.volume>0.02){
+
+            music.volume-=0.02;
+
+        }else{
+
+            music.volume=0;
+
+            clearInterval(interval);
+
+            setTimeout(()=>{
+
+                music.currentTime=0;
+
+                music.play();
+
+                fadeIn();
+
+            },5000);
+
+        }
+
+    },40);
+
+}
+
+/* ============================
+        CARTA
+============================ */
+
+const fullLetter = `
+
+Querida Fresley, 
+
+Hace un año comenzamos está historia de amor que aún seguimos escribiendo, 
+y está de más decirte lo mucho que me importas y cuánto te amo, pero te lo digo aún...
+
+
+Has sido parte de cada momento bueno, malo, triste, y feliz a lo largo de este año, y 
+solo puedo agradecerte por ser una novia tan maravillosa. Con solo recordar tu sonrisa me pongo a sonreír, 
+eres la única para mi.
+
+
+Cada vez que pienso en ti, una melodía como esta atraviesa mi mente...
+La compuse especialmente para ti para que sepas lo especial que eres tú en mi vida. 
+Llevamos un año juntos, 366 días y hoy por fin puedo decirte...
+
+
+Feliz aniversario, Amor de mi vida.
+
+De Julio.
+
+`;
+
+let currentChar = 0;
+
+function typeLetter(){
+
+    letterText.innerHTML="";
+
+    currentChar=0;
+
+    writeCharacter();
+
+}
 
 /* ============================
       FUEGOS ARTIFICIALES
